@@ -44,6 +44,9 @@ button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:2
 .pieces span{flex:1;text-align:center;padding:10px 0;border:2px dashed var(--dim);color:var(--dim)}
 .pieces span.got{border:2px solid var(--ink);background:var(--brass);color:var(--ink)}
 .verdict{text-align:center}
+.mug{margin:0 auto 18px;max-width:340px;background:var(--paper2);border:3px double var(--ink);padding:10px;transform:rotate(-1.5deg)}
+.mug img{display:block;width:100%;height:auto;border:2px solid var(--ink)}
+.mug figcaption{font-family:Rye,serif;color:var(--rust);margin-top:8px}
 .verdict h2{font-size:clamp(1.8rem,6vw,2.8rem)}
 #trans{position:fixed;inset:0;background:var(--wood);color:var(--paper);display:none;place-items:center;text-align:center;z-index:9;padding:20px}
 #trans.on{display:grid}
@@ -88,7 +91,7 @@ footer{text-align:center;color:var(--dim);font-size:.85rem;margin-top:30px}
   <section class="sheet locked" id="s2-locked"><h2>11 PM: The Jailhouse</h2><p>Locked. Clear the saloon first.</p></section>
   <section class="sheet" id="s2" hidden>
     <h2>11 PM: The Jailhouse</h2>
-    <div class="clue"><strong>Clue 1, from the saloon:</strong> A tuft of fur by the table. A card with a hole the size of a claw. And the dealer swears she “saw nobody.”</div>
+    <div class="clue"><strong>Clue 1, from the saloon:</strong> A tuft of fur by the table. One card stamped with a muddy paw print. And the dealer swears she “saw nobody.”</div>
     <p>One of the posters says that suspect was locked in the jailhouse all night. The sheriff’s evidence log would prove it, but it’s in the evidence locker, and the key went missing when the badge broke. You’ve got the pick kit from the saloon.</p>
     <p>The prisoner in the next cell knows a thing or two about locks. Listen to her. When the locker opens, you’ll find a new telegram inside.</p>
     <form class="gate" data-stage="2" autocomplete="off">
@@ -122,6 +125,7 @@ footer{text-align:center;color:var(--dim);font-size:.85rem;margin-top:30px}
     <button class="btn" id="reveal">The badge is in place</button>
   </section>
   <section class="sheet verdict" id="verdict" hidden>
+    <figure class="mug"><img src="pinky.jpg" alt="Pinky the cat, caught red-pawed" onerror="this.parentNode.hidden=true"><figcaption>Caught red-pawed</figcaption></figure>
     <h2>The real outlaw: Pinky “The Whisker” McGraw</h2>
     <p>She knocked the badge off the desk, dragged off the gold, and let the town blame three innocent souls. All for a lifetime supply of tuna.</p>
     <p class="note" style="text-align:left">The Christmas Fund is hidden at the spot marked <strong>X?</strong> on the map. Go find it. Charges against all three suspects are hereby dropped, and you are officially deputized.</p>
@@ -187,7 +191,7 @@ function render(){
   b.forEach((d,i) => {
     const found = i < stage;
     d.classList.toggle("found", found);
-    d.textContent = found ? ["Clue 1: fur tuft, clawed card, “saw nobody”",
+    d.textContent = found ? ["Clue 1: fur tuft, paw-printed card, “saw nobody”",
       "Clue 2: tiny paw prints, “landed on their feet,” a tail",
       "Clue 3: tuna gone, whisker-shaped footprints"][i] : "Clue " + (i+1) + ": unknown";
   });
