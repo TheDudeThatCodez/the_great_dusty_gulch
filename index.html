@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Great Dusty Gulch Christmas Caper</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Rye&family=Special+Elite&display=swap" rel="stylesheet">
+<style>
+:root{
+  --wood:#2b1a10; --wood2:#3d2616; --paper:#ead9b0; --paper2:#dcc592;
+  --ink:#2a1a0e; --rust:#9a2c1a; --brass:#c9922f; --dim:#a98d62;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--wood);color:var(--ink);font:18px/1.6 "Special Elite",Georgia,serif;
+  background-image:repeating-linear-gradient(90deg,rgba(0,0,0,.18) 0 2px,transparent 2px 120px)}
+h1,h2,h3{font-family:Rye,"Rockwell",Georgia,serif;font-weight:400;margin:0 0 .4em;line-height:1.15}
+main{max-width:760px;margin:0 auto;padding:0 16px 80px}
+header{text-align:center;padding:48px 8px 20px;color:var(--paper)}
+header h1{font-size:clamp(2rem,7vw,3.4rem);color:var(--brass);text-shadow:3px 3px 0 #000}
+header p{margin:.3em 0;color:var(--paper2)}
+button:focus-visible,input:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.sheet{background:var(--paper);padding:26px 24px;margin:0 0 22px;border:1px solid #0006;box-shadow:0 6px 0 #0008;
+  background-image:radial-gradient(ellipse at 20% 0,rgba(120,70,20,.25),transparent 60%),radial-gradient(ellipse at 100% 100%,rgba(120,70,20,.3),transparent 55%)}
+.sheet.locked{background:var(--wood2);color:var(--dim);box-shadow:none;border:2px dashed var(--dim);text-align:center}
+.sheet h2{color:var(--rust);font-size:1.6rem}
+.when{color:var(--rust);margin:0 0 10px}
+.note{font-style:italic;border-left:4px solid var(--rust);padding-left:14px}
+.gate{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+.gate input{flex:1 1 200px;font:inherit;padding:10px;border:2px solid var(--ink);background:#fff8e6;text-transform:uppercase;letter-spacing:.08em}
+.gate button,.btn{font:inherit;background:var(--rust);color:#fff;border:0;padding:10px 20px;cursor:pointer;box-shadow:0 4px 0 #531509}
+.gate button:active,.btn:active{transform:translateY(3px);box-shadow:0 1px 0 #531509}
+.msg{min-height:1.6em;margin:8px 0 0;color:var(--rust)}
+.shake{animation:shake .4s}
+@keyframes shake{25%{transform:translateX(-7px)}75%{transform:translateX(7px)}}
+.clue{background:#fff8e6;border:2px dashed var(--ink);padding:12px 16px;margin:16px 0}
+.clue strong{font-family:Rye,serif;font-weight:400;color:var(--rust)}
+.board{display:grid;gap:8px;margin-top:12px}
+.board div{padding:8px 12px;border:2px dashed var(--dim);color:var(--dim)}
+.board div.found{border:2px solid var(--ink);background:#fff8e6;color:var(--ink)}
+.pieces{display:flex;gap:10px;margin:14px 0}
+.pieces span{flex:1;text-align:center;padding:10px 0;border:2px dashed var(--dim);color:var(--dim)}
+.pieces span.got{border:2px solid var(--ink);background:var(--brass);color:var(--ink)}
+.verdict{text-align:center}
+.verdict h2{font-size:clamp(1.8rem,6vw,2.8rem)}
+#trans{position:fixed;inset:0;background:var(--wood);color:var(--paper);display:none;place-items:center;text-align:center;z-index:9;padding:20px}
+#trans.on{display:grid}
+#trans h2{color:var(--brass);font-size:clamp(1.6rem,6vw,2.6rem)}
+.dots::after{content:"";animation:d 1.2s steps(4) infinite}
+@keyframes d{0%{content:""}25%{content:"."}50%{content:".."}75%{content:"..."}}
+[hidden]{display:none!important}
+footer{text-align:center;color:var(--dim);font-size:.85rem;margin-top:30px}
+@media (prefers-reduced-motion:reduce){.shake,.dots::after{animation:none}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="trans" role="status" aria-live="polite"><div><h2 id="transText"></h2><p class="dots">Walking there now</p></div></div>
+
+<header>
+  <h1>The Great Dusty Gulch Christmas Caper</h1>
+  <p>Christmas Eve. The Town Fund is gone. The law is in three pieces.</p>
+</header>
+
+<main>
+<div id="case">
+  <!-- INTRO -->
+  <section class="sheet">
+    <h2>A note from the sheriff</h2>
+    <p class="note">Somebody robbed the saloon safe and took the Christmas Fund, every last coin meant for presents, pies, and the town tree. Then they ambushed me and snapped my badge in three. Without it, there ain’t no law in Dusty Gulch and nobody can clear a name.<br><br>Those three posters on the wall are of folks I know are being framed. Find my badge pieces, prove their alibis, and unmask the real varmint before midnight. Make it right, and I’ll deputize the lot of you.<br>— The Sheriff <small>(excuse the penmanship)</small></p>
+    <p>Check the wanted posters and the map on the wall. Three stops, three alibis, three pieces of the badge. Start at the saloon.</p>
+  </section>
+
+  <!-- STATION 1 -->
+  <section class="sheet" id="s1">
+    <h2>9 PM: The Saloon</h2>
+    <p>Aces Dalton deals the cards here, and she saw something she can’t explain. She’ll only talk to folks who’ve played a hand with her. Rebuild the winning hand from the night of the robbery.</p>
+    <p>When she’s satisfied, she’ll hand you a telegram. Type its code below.</p>
+    <form class="gate" data-stage="1" autocomplete="off">
+      <input aria-label="Telegram code" placeholder="Telegram code" required>
+      <button>Send telegram</button>
+    </form>
+    <p class="msg" aria-live="polite"></p>
+  </section>
+
+  <!-- STATION 2 -->
+  <section class="sheet locked" id="s2-locked"><h2>11 PM: The Jailhouse</h2><p>Locked. Clear the saloon first.</p></section>
+  <section class="sheet" id="s2" hidden>
+    <h2>11 PM: The Jailhouse</h2>
+    <div class="clue"><strong>Clue 1, from the saloon:</strong> A tuft of fur by the table. A card with a hole the size of a claw. And the dealer swears she “saw nobody.”</div>
+    <p>One of the posters says that suspect was locked in the jailhouse all night. The sheriff’s evidence log would prove it, but it’s in the evidence locker, and the key went missing when the badge broke. You’ve got the pick kit from the saloon.</p>
+    <p>The prisoner in the next cell knows a thing or two about locks. Listen to her. When the locker opens, you’ll find a new telegram inside.</p>
+    <form class="gate" data-stage="2" autocomplete="off">
+      <input aria-label="Telegram code" placeholder="Telegram code" required>
+      <button>Send telegram</button>
+    </form>
+    <p class="msg" aria-live="polite"></p>
+  </section>
+
+  <!-- STATION 3 -->
+  <section class="sheet locked" id="s3-locked"><h2>Midnight: The Shooting Range</h2><p>Locked. Open the evidence locker first.</p></section>
+  <section class="sheet" id="s3" hidden>
+    <h2>Midnight: The Shooting Range</h2>
+    <div class="clue"><strong>Clue 2, from the jailhouse:</strong> Tiny muddy paw prints on the windowsill. The sheriff’s note reads: “Whoever it was, they landed on their feet.” And the prisoner saw a little fella with a tail sneaking by.</div>
+    <p>The sheriff never trusted ordinary safes. Behind the jail he built a trick-shot lockbox that opens only when the target cans fall in the right order. Somebody swapped the usual tin cans for empty, licked-clean tuna cans.</p>
+    <p>Your evidence log shows the order. Follow it exactly. The range marshal will hand out eye protection and run the firing line, so do what she says, and nobody shoots until she says so.</p>
+    <p>When the lockbox opens, the last badge piece and a telegram are inside.</p>
+    <form class="gate" data-stage="3" autocomplete="off">
+      <input aria-label="Telegram code" placeholder="Telegram code" required>
+      <button>Send telegram</button>
+    </form>
+    <p class="msg" aria-live="polite"></p>
+  </section>
+
+  <!-- FINALE -->
+  <section class="sheet" id="s4" hidden>
+    <h2>The badge is whole</h2>
+    <div class="clue"><strong>Clue 3, from the range:</strong> Every tuna can empty. A trail of whisker-shaped footprints leading away.</div>
+    <p>Small. Furry. A tail. Lands on its feet. Loves tuna. Knocks things off tables.</p>
+    <p>Snap the three badge pieces together and set the badge in the slot on the sheriff’s box. When the box sings, press the button.</p>
+    <button class="btn" id="reveal">The badge is in place</button>
+  </section>
+  <section class="sheet verdict" id="verdict" hidden>
+    <h2>The real outlaw: Pinky “The Whisker” McGraw</h2>
+    <p>She knocked the badge off the desk, dragged off the gold, and let the town blame three innocent souls. All for a lifetime supply of tuna.</p>
+    <p class="note" style="text-align:left">The Christmas Fund is hidden at the spot marked <strong>X?</strong> on the map. Go find it. Charges against all three suspects are hereby dropped, and you are officially deputized.</p>
+  </section>
+
+  <section class="sheet">
+    <h2>Evidence board</h2>
+    <div class="pieces" id="pieces"><span>Piece 1</span><span>Piece 2</span><span>Piece 3</span></div>
+    <div class="board" id="board">
+      <div>Clue 1: unknown</div><div>Clue 2: unknown</div><div>Clue 3: unknown</div>
+    </div>
+  </section>
+</div>
+
+<footer>Deputies only. <span id="host"></span></footer>
+</main>
+
+<script>
+/* ===== EDIT THIS SECTION ===== */
+/* SHA-256 of each code after normalizing (uppercase, letters/numbers only).
+   Codes: TUNA9, PAWPRINT, NINELIVES. To change one, run:  printf "NEWCODE" | sha256sum */
+const HASHES = [
+  "0c4ac00f767aeb96dd0a8211d6da2f3fafdb4ece49de70ce4c158c8874e68446",
+  "daec070791fd10b89e7f59b018afe1b23e7350181ed6b65d169b191dd1df3cd0",
+  "a3d94f9946ad8b40a85c7d95690b9a2ac35929749cac4d5e71255a4de47a0024"
+];
+const WRONG = [
+  "That telegram don’t ring true, partner.",
+  "Wire says no. Check the spelling, deputy.",
+  "Nice try. The telegraph operator ain’t buying it."
+];
+const TRANSITIONS = ["", "Heading to the jailhouse", "Heading to the shooting range", "Gathering at the saloon"];
+/* ============================= */
+
+const KEY = "dustygulch-stage";
+let stage = 0, revealed = false;
+const $ = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+
+function save(){ try{ localStorage.setItem(KEY, JSON.stringify({stage, revealed})); }catch(e){} }
+function load(){ try{ const d = JSON.parse(localStorage.getItem(KEY)); if(d){ stage = d.stage|0; revealed = !!d.revealed; } }catch(e){} }
+
+async function sha(str){
+  const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(str));
+  return [...new Uint8Array(buf)].map(b => b.toString(16).padStart(2,"0")).join("");
+}
+const norm = s => s.toUpperCase().replace(/[^A-Z0-9]/g,"");
+
+function render(){
+  $("#s2").hidden = stage < 1; $("#s2-locked").hidden = stage >= 1;
+  $("#s3").hidden = stage < 2; $("#s3-locked").hidden = stage >= 2;
+  $("#s4").hidden = stage < 3;
+  $("#verdict").hidden = !(stage >= 3 && revealed);
+  $("#reveal").hidden = revealed;
+  // lock gates that are already solved
+  $$(".gate").forEach(g => {
+    const done = stage >= +g.dataset.stage;
+    $("input", g).disabled = done; $("button", g).disabled = done;
+    if(done){ $("input", g).value = ""; $("input", g).placeholder = "Telegram delivered"; $(".msg", g.parentNode).textContent = ""; }
+  });
+  $$("#pieces span").forEach((s,i) => s.classList.toggle("got", i < stage));
+  const b = $$("#board div");
+  b.forEach((d,i) => {
+    const found = i < stage;
+    d.classList.toggle("found", found);
+    d.textContent = found ? ["Clue 1: fur tuft, clawed card, “saw nobody”",
+      "Clue 2: tiny paw prints, “landed on their feet,” a tail",
+      "Clue 3: tuna gone, whisker-shaped footprints"][i] : "Clue " + (i+1) + ": unknown";
+  });
+}
+
+function advance(to){
+  const stageFrom = stage;
+  stage = to; save();
+  const t = $("#trans");
+  if(TRANSITIONS[to] && to > stageFrom && to < 3){
+    $("#transText").textContent = TRANSITIONS[to];
+    t.classList.add("on");
+    setTimeout(() => { t.classList.remove("on"); render(); target(to); }, 2200);
+  } else { render(); target(to); }
+}
+function target(n){
+  const id = n >= 3 ? "#s4" : n === 2 ? "#s3" : "#s2";
+  const el = $(id); if(el && !el.hidden) el.scrollIntoView({block:"start"});
+}
+
+$$(".gate").forEach(form => {
+  form.addEventListener("submit", async e => {
+    e.preventDefault();
+    const n = +form.dataset.stage, input = $("input", form), msg = $(".msg", form.parentNode);
+    if(n !== stage + 1) return;
+    const h = await sha(norm(input.value));
+    if(h === HASHES[n-1]){ msg.textContent = "Telegram received. Mighty fine work."; advance(n); }
+    else {
+      msg.textContent = WRONG[Math.floor(Math.random()*WRONG.length)];
+      form.classList.remove("shake"); void form.offsetWidth; form.classList.add("shake");
+    }
+  });
+});
+
+$("#reveal").addEventListener("click", () => { revealed = true; save(); render(); $("#verdict").scrollIntoView({block:"start"}); });
+
+// host controls: ?skip=0..3 jumps ahead, ?reset=1 starts over
+load();
+const q = new URLSearchParams(location.search);
+if(q.has("reset")){ stage = 0; revealed = false; save(); }
+if(q.has("skip")){ stage = Math.max(0, Math.min(3, +q.get("skip")||0)); save(); }
+if(q.has("skip") || q.has("reset")) history.replaceState(null, "", location.pathname);
+render();
+</script>
+</body>
+</html>
